@@ -4,33 +4,36 @@ fun main() {
     val account = Account()
     account.holder = "Vania"
     account.accountNumber = 321
-    account.setBalance(12.3)
+    account.deposit(12.3)
     println("titular: ${account.holder}")
     println("número da conta: ${account.accountNumber}")
-    println("saldo: ${account.getBalance()}")
+    println("saldo: ${account.balance}")
 
     val account2 = Account()
     account2.holder = "Erica"
     account2.accountNumber = 123
-    account2.setBalance(1.23)
+    account2.deposit(1.23)
     println("titular: ${account2.holder}")
     println("número da conta: ${account2.accountNumber}")
-    println("saldo: ${account2.getBalance()}")
+    println("saldo: ${account2.balance}")
 
 
 }
 
 fun deposit(account: Account, value: Double) {
-    account.setBalance(account.getBalance() + value)
+    account.deposit(value)
 }
 
 class Account {
     var holder = ""
     var accountNumber = 0
-    private var balance = 0.0
+    var balance = 0.0
+        private set
 
     fun deposit(value: Double) {
-        balance += value
+        if (value > 0) {
+            balance += value
+        }
     }
 
     fun withdraw(value: Double) {
@@ -38,6 +41,7 @@ class Account {
             balance -= value
         }
     }
+
     fun transfer(value: Double, destiny: Account): Boolean {
         return if (balance >= value) {
             balance -= value
@@ -48,13 +52,13 @@ class Account {
         }
     }
 
-    fun getBalance(): Double {
-        return  balance
-    }
-
-    fun setBalance(value: Double) {
-        balance += value
-    }
+//    fun getBalance(): Double {
+//        return  balance
+//    }
+//
+//    fun setBalance(value: Double) {
+//        balance += value
+//    }
 
 }
 
@@ -62,9 +66,9 @@ fun tests2(account: Account, account2: Account) {
     println("depositando na conta da: ${account2.holder}")
 
     deposit(account2, 100.00)
-    println("saldo: ${account2.getBalance()}")
+    println("saldo: ${account2.balance}")
     deposit(account, 10.00)
-    println("saldo: ${account.getBalance()}")
+    println("saldo: ${account.balance}")
 
     account2.deposit(1.00)
 
@@ -73,22 +77,22 @@ fun tests2(account: Account, account2: Account) {
     account2.withdraw(100.00)
     account.withdraw(25.00)
 
-    println("saldo: ${account2.getBalance()}")
-    println("saldo: ${account.getBalance()}")
+    println("saldo: ${account2.balance}")
+    println("saldo: ${account.balance}")
 
     println("transferir nas conta")
 
-    if(account2.transfer(100.00, account)){
+    if (account2.transfer(100.00, account)) {
         println("transferencia sucedida")
 
-    }else {
+    } else {
         print("falha na transferencia")
     }
 
     account.transfer(25.00, account2)
 
-    println("saldo: ${account2.getBalance()}")
-    println("saldo: ${account.getBalance()}")
+    println("saldo: ${account2.balance}")
+    println("saldo: ${account.balance}")
 }
 
 fun tests() {
