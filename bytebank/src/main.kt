@@ -1,6 +1,41 @@
 fun main() {
     println("Bem vindo ao Bytebank")
 
+    val account = Account()
+    account.holder = "Vania"
+    account.accountNumber = 321
+    account.balance = 12.3
+    println("titular: ${account.holder}")
+    println("número da conta: ${account.accountNumber}")
+    println("saldo: ${account.balance}")
+
+    val account2 = Account()
+    account2.holder = "Erica"
+    account2.accountNumber = 123
+    account2.balance = 1.23
+    println("titular: ${account2.holder}")
+    println("número da conta: ${account2.accountNumber}")
+    println("saldo: ${account2.balance}")
+
+    println("depositando na conta da: ${account2.holder}")
+
+    deposita(account2, 100.00)
+    deposita(account, 10.00)
+
+}
+
+fun deposita(account: Account, value: Double) {
+    account.balance += value
+}
+
+class Account {
+    var holder = ""
+    var accountNumber = 0
+    var balance = 0.0
+}
+
+
+fun tests(){
     val holder = "Vania Almeida"
     val accountNumber = 12345
 
