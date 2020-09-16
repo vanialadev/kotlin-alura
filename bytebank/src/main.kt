@@ -19,12 +19,37 @@ fun main() {
 
     println("depositando na conta da: ${account2.holder}")
 
-    deposita(account2, 100.00)
-    deposita(account, 10.00)
+    deposit(account2, 100.00)
+    println("saldo: ${account2.balance}")
+    deposit(account, 10.00)
+    println("saldo: ${account.balance}")
 
+    account2.deposit(1.00)
+
+    println("saque nas conta")
+
+    account2.withdraw(100.00)
+    account.withdraw(25.00)
+    
+    println("saldo: ${account2.balance}")
+    println("saldo: ${account.balance}")
+
+    println("transferir nas conta")
+
+    if(account2.transfer(100.00, account)){
+        println("transferencia sucedida")
+
+    }else {
+        print("falha na transferencia")
+    }
+
+    account.transfer(25.00, account2)
+
+    println("saldo: ${account2.balance}")
+    println("saldo: ${account.balance}")
 }
 
-fun deposita(account: Account, value: Double) {
+fun deposit(account: Account, value: Double) {
     account.balance += value
 }
 
@@ -32,10 +57,29 @@ class Account {
     var holder = ""
     var accountNumber = 0
     var balance = 0.0
+
+    fun deposit(value: Double) {
+        balance += value
+    }
+
+    fun withdraw(value: Double) {
+        if (balance >= value) {
+            balance -= value
+        }
+    }
+    fun transfer(value: Double, destiny: Account): Boolean {
+        return if (balance >= value) {
+            balance -= value
+            destiny.balance += value
+            true
+        } else {
+            false
+        }
+    }
 }
 
 
-fun tests(){
+fun tests() {
     val holder = "Vania Almeida"
     val accountNumber = 12345
 
