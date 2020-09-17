@@ -1,17 +1,17 @@
 fun main() {
     println("Bem vindo ao Bytebank")
 
-    val account = Account()
-    account.holder = "Vania"
-    account.accountNumber = 321
+    val account = Account("Vania", 321)
+//    account.holder = "Vania"
+//    account.accountNumber = 321
     account.deposit(12.3)
     println("titular: ${account.holder}")
     println("número da conta: ${account.accountNumber}")
     println("saldo: ${account.balance}")
 
-    val account2 = Account()
+    val account2 = Account( 123)
     account2.holder = "Erica"
-    account2.accountNumber = 123
+//    account2.accountNumber = 123
     account2.deposit(1.23)
     println("titular: ${account2.holder}")
     println("número da conta: ${account2.accountNumber}")
@@ -24,11 +24,18 @@ fun deposit(account: Account, value: Double) {
     account.deposit(value)
 }
 
-class Account {
-    var holder = ""
-    var accountNumber = 0
+class Account(var holder: String, var accountNumber: Int) {
     var balance = 0.0
         private set
+
+//    constructor(holder: String, accountNumber: Int){
+//        this.holder = holderx
+//        this.accountNumber = accountNumber
+//    }
+
+    constructor(accountNumber: Int) {
+        this.accountNumber = accountNumber
+    }
 
     fun deposit(value: Double) {
         if (value > 0) {
